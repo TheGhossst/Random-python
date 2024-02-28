@@ -23,3 +23,20 @@ def deposit():
             break
         else:
             print("Enter a number greater than 0")
+            
+def withdraw():
+    global amount
+    
+    while True:
+        checkBalance()
+        withdrawAmount = int(input("Enter the amount to be withdrawn: "))
+        
+        if(withdrawAmount > 0):
+            if(withdrawAmount <= amount):
+                amount -= withdrawAmount
+                checkBalance()
+                break
+            else:
+                print("Withdraw request is greater than balance try again!")
+        else:
+            print("Invalid input, please enter a positive integer.")
