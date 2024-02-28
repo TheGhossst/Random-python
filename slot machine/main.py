@@ -5,7 +5,7 @@ amount = 0
 
 def checkBalance():
     global amount
-    print("\nYour balance is : $", amount)
+    print("\nYour balance is : \033[32m$", amount, "\033[0m") 
     if amount == 0:
         print("You have no money in your account.")
         amount += 20
