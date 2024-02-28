@@ -81,3 +81,28 @@ def slot():
         
     else:
         print("\nYou Lose\n")
+        
+def main():
+    global amount
+    print("Slot machine")
+    
+    while True:
+        print("\n1. Deposit\n2. Check Balance\n3. Withdraw\n4. Play Slot\n5. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            deposit()
+        elif choice == '2':
+            checkBalance()
+        elif choice == '3':
+            withdraw()
+        elif choice == '4':
+            slot()
+        elif choice == '5':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please enter again.")
+
+
+if __name__ == "__main__":
+    main()
