@@ -1,4 +1,5 @@
 import random as ran
+import time
 
 amount = 0
 
@@ -40,3 +41,43 @@ def withdraw():
                 print("Withdraw request is greater than balance try again!")
         else:
             print("Invalid input, please enter a positive integer.")
+            
+def slot():
+    global amount
+   
+    while True :
+        bettingAmmount = int(input("Enter the amount you wish to bet for: "))
+        if (bettingAmmount > amount):
+            print("Not enough money to bet")
+            checkBalance()
+        elif bettingAmmount == 0:
+            print("Betting amount cant be  zero. Please enter an amount greater than zero.")
+        else:
+            print(f"\n{bettingAmmount} is being placed on slots\n")
+            amount -= bettingAmmount
+            break
+        
+    symbols = ['Banana', 'Apple', 'Carrot', 'Guava']
+    
+    slot1 = ran.choice(symbols)
+    slot2 = ran.choice(symbols)
+    slot3 = ran.choice(symbols)
+    
+    print("Slot")
+    print(slot1, "||", end=' ')
+    print(slot2, "||", end=' ')
+    time.sleep(1)  
+    print(slot3)
+    
+    if slot1 == slot2 == slot3:
+        print("\nJackpot!!!\n")
+        amount +=bettingAmmount*10
+        print("10x has been credited")
+        
+    elif slot1 == slot2 != slot3 or slot1 != slot2 == slot3 or slot1 == slot3 != slot2:
+        print("\nPartial Win\n")
+        amount += bettingAmmount + 10
+        print("+10 has been credited")
+        
+    else:
+        print("\nYou Lose\n")
