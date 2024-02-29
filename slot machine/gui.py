@@ -18,8 +18,6 @@ def checkBalance():
 def deposit():
     global amount
     
-    #mainWindow.destroy()
-    
     def processDeposit():
         global amount
         depositedAmount = int(depositText.get("1.0", "end-1c"))
@@ -37,13 +35,13 @@ def deposit():
     depositWindow.geometry('700x400')
     
     depositLabel = Label(depositWindow, text="How much do you want to deposit", font=('Arial', 18, 'bold'))
-    depositLabel.pack(side="top")
+    depositLabel.pack(side = "top")
     
     depositText = Text(depositWindow, font=('Arial', 16), height=1, width=20)
-    depositText.pack(side="top")
+    depositText.pack(side = "top")
     
     depositAmount = Button(depositWindow, text="Deposit", width=10, font=("Calibri", 30), command=processDeposit)
-    depositAmount.pack(side="top")
+    depositAmount.pack(side = "top")
    
     depositWindow.mainloop()
         
@@ -73,34 +71,42 @@ def withdraw():
     withdrawWindow.geometry('700x400')
     
     withdrawLabel = Label(withdrawWindow, text="How much do you want to withdraw", font=('Arial', 18, 'bold'))
-    withdrawLabel.pack(side="top")
+    withdrawLabel.pack(side = "top")
     
     withdrawText = Text(withdrawWindow, font=('Arial', 16), height=1, width=20)
-    withdrawText.pack(side="top")
+    withdrawText.pack(side = "top")
     
     withdrawAmount = Button(withdrawWindow, text="Withdraw", width=10, font=("Calibri", 30), command=processWithdraw)
-    withdrawAmount.pack(side="top")
+    withdrawAmount.pack(side = "top")
    
     withdrawWindow.mainloop()
-    
-    '''while True:
-        checkBalance()
-        withdrawAmount = int(input("Enter the amount to be withdrawn: "))
-        
-        if(withdrawAmount > 0):
-            if(withdrawAmount <= amount):
-                amount -= withdrawAmount
-                balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
-                break
-            else:
-                print("Withdraw request is greater than balance try again!")
-        else:
-            print("Invalid input, please enter a positive integer.")'''
             
 def slot():
     global amount
+    
+    def setupItems():
+        for i in range(3):
+            x0 = 50 + i * 50
+            y0 = 50
+            x1 = x0 + 50
+            y1 = y0 + 100
+            rectangle = slotCanvas.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
+            slotRectangles.append(rectangle)
+            
+    slotWindow = Tk()
+    slotWindow.title("Slot Machine")
+    slotWindow.geometry('700x400')
+    
+    slotCanvas = Canvas(slotWindow,width = 200,height = 200)
+    slotCanvas.pack(side = "top")
+    
+    slotItems = ["red", "green", "blue", "yellow", "purple"]
+    slotRectangles = []
+    setupItems()
+    
+    slotWindow.mainloop()
    
-    while True :
+    '''while True :
         bettingAmmount = int(input("Enter the amount you wish to bet for: "))
         if (bettingAmmount > amount):
             print("Not enough money to bet")
@@ -135,7 +141,7 @@ def slot():
         print("+10 has been credited")
         
     else:
-        print("\nYou Lose\n")
+        print("\nYou Lose\n")'''
         
 
 mainWindow = Tk()
