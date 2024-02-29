@@ -1,27 +1,6 @@
 from tkinter import *
 import random as rand
 
-def nextGame():
-    print("New game")
-    
-def checkWinner():
-    #print("bah")
-    for i in range(3):
-        if board[i][0]['text'] == board[i][1]['text']  == board[i][2]['text'] !=""  : #row check
-            print("won")
-            return True
-        elif  board[0][i]['text'] == board[1][i]['text'] ==  board[2][i]['text'] !="" :  #coloumn check
-            print("won")
-            return True
-    
-def nextTurn(row,column):
-    print(f"{row}{column}")
-    global turn
-    
-    if board[row][column]['text'] == "" and checkWinner() is False:
-        if turn == players[0]  or turn == players[1]:
-            board[row][column]['text'] = turn
-    
 players = ["X","O"]
 
 board = [[0,0,0],
@@ -31,6 +10,49 @@ board = [[0,0,0],
 turn = rand.choice(players)
 print(turn)
 
+def nextGame():
+    print("New game")
+    
+def checkWinner():
+    #print("bah")
+    for i in range(3):
+        if board[i][0]['text'] == board[i][1]['text']  == board[i][2]['text'] !=""  : #row check
+            print("won")
+            return True
+    for i in range(3):
+        if  board[0][i]['text'] == board[1][i]['text'] ==  board[2][i]['text'] !="" :  #coloumn check
+            print("won")
+            return True
+    for i in range(1):
+        if board[i][i]['text'] ==board[i+1][i+1]['text']== board[i+2][i+2]['text']!="":#diagonal check
+            print("won")
+            return True
+    return False
+    
+def nextTurn(row,column):
+    print(f"{row}{column}")
+    global turn
+    
+    if board[row][column]['text'] == "" and checkWinner() is False:
+        if turn == players[0]:
+            board[row][column]['text'] = turn
+            if checkWinner() is False:
+                turn = players[1]
+                turnLabel.config(text = f"{players[1]}'s turn")
+            elif checkWinner() is True:
+                turnLabel.config(text = f"{turn} won")
+            elif checkWinner() == "Tie":
+                turnLabel.config(text = "Tie")
+        elif turn == players[1]:
+            board[row][column]['text'] = turn
+            if checkWinner() is False:
+                turn = players[0]
+                turnLabel.config(text = f"{players[0]}'s turn")
+            elif checkWinner() is True:
+                turnLabel.config(text = f"{turn} won")
+            elif checkWinner() == "Tie":
+                turnLabel.config(text = "Tie")
+    
 window = Tk()
 window.title("Tic-Tac-Toe")
 
