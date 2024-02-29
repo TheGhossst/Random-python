@@ -8,10 +8,8 @@ board = [[0,0,0],
          [0,0,0]]
 
 turn = rand.choice(players)
-print(turn)
 
 def nextGame():
-    print("New game")
     global turn
 
     turn = rand.choice(players)
@@ -22,8 +20,8 @@ def nextGame():
             board[row][col].config(text = "",bg = "#F0F0F0")
     
 def isEmptySpaces():
-    #print("sup")
     totalSpace = 9
+    
     for row in range(3):
         for col in range(3):
             if board[row][col]['text'] != "":
@@ -34,21 +32,29 @@ def isEmptySpaces():
     return True
     
 def checkWinner():
-    #print("bah")
+    
     for i in range(3):
         if board[i][0]['text'] == board[i][1]['text']  == board[i][2]['text'] !=""  : #row check
-            print("won")
+            board[i][0].config(bg = "green")
+            board[i][1].config(bg = "green")
+            board[i][2].config(bg = "green")
             return True
     for i in range(3):
         if  board[0][i]['text'] == board[1][i]['text'] ==  board[2][i]['text'] !="" :  #coloumn check
-            print("won")
+            board[0][i].config(bg = "green")
+            board[1][i].config(bg = "green")
+            board[2][i].config(bg = "green")
             return True
     for i in range(1):
         if board[i][i]['text'] == board[i+1][i+1]['text']== board[i+2][i+2]['text']!="": #diagonal check :(
-            print("won")
+            board[i][i].config(bg = "green")
+            board[i+1][i+1].config(bg = "green")
+            board[i+2][i+2].config(bg = "green")
             return True
         if board[i][i+2]['text'] == board[i+1][i+1]['text']== board[i+2][i]['text']!="": #anti-diagonal check :(
-            print("won")
+            board[i][i+2].config(bg = "green")
+            board[i+1][i+1].config(bg = "green")
+            board[i+2][i].config(bg = "green")
             return True
     
     if isEmptySpaces() is False:
@@ -57,7 +63,6 @@ def checkWinner():
     return False
     
 def nextTurn(row,column):
-    print(f"{row}{column}")
     global turn
     
     if board[row][column]['text'] == "" and checkWinner() is False:
