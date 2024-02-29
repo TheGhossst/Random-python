@@ -93,9 +93,42 @@ def slot():
             rectangle = slotCanvas.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
             slotRectangles.append(rectangle)
             
+    def checkResult():
+        global amount
+        if slotRectangles[0] == slotRectangles[1] == slotRectangles[2]:
+            tkinter.messagebox.showinfo("Result", "Jackpot!!!")
+            amount *= 10
+            balanceLabel1.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
+            balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
+        else:
+            tkinter.messagebox.showinfo("Result", "Try Again!")
+            
+    def animate(count):
+        if count < 20:
+            for rectangle in slotRectangles:
+                slotCanvas.itemconfig(rectangle, fill = ran.choice(slotItems))
+            slotWindow.after(100,animate, count + 1)
+        else:
+            checkResult()
+            spinButton.config(state = NORMAL)
+        
+    def spin():
+        global amount
+        if amount > 0:
+            spinButton.config(state = DISABLED)
+            amount -= 10
+            balanceLabel1.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
+            balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
+            animate(0)
+        else:
+            tkinter.messagebox.showwarning(title="Error", message="You dont have enough money to spin")
+            
     slotWindow = Tk()
     slotWindow.title("Slot Machine")
     slotWindow.geometry('700x400')
+    
+    balanceLabel1 = Label(slotWindow,text = f"The balance is : {amount}",font = ("Calibri", 25) )
+    balanceLabel1.pack(side = "top")
     
     slotCanvas = Canvas(slotWindow,width = 200,height = 200)
     slotCanvas.pack(side = "top")
@@ -103,6 +136,9 @@ def slot():
     slotItems = ["red", "green", "blue", "yellow", "purple"]
     slotRectangles = []
     setupItems()
+    
+    spinButton = Button(slotWindow,text = "Spin!",command = spin)
+    spinButton.pack(side = "top")
     
     slotWindow.mainloop()
    
