@@ -14,20 +14,34 @@ def checkBalance():
         balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
         checkBalance()
     
-
 def deposit():
     global amount
-    while True:
-        deposit_amount = int(input("Enter the amount: "))
-        if deposit_amount > 0:
-            amount += deposit_amount
-            print("Deposited ", deposit_amount)
-            balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
-            checkBalance()
-            break
-        else:
-            print("Enter a number greater than 0")
-            
+    
+    #mainWindow.destroy()
+    
+    def process_deposit():
+        global amount
+        depositedAmount = depositText.get("1.0", "end-1c")
+        amount += int(depositedAmount)  
+        balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
+        print("Deposit amount:", depositedAmount) 
+        depositWindow.destroy()
+
+    depositWindow = Tk()
+    depositWindow.title("Deposit Money")
+    depositWindow.geometry('700x400')
+    
+    depositLabel = Label(depositWindow, text="How much do you want to deposit", font=('Arial', 18, 'bold'))
+    depositLabel.pack(side="top")
+    
+    depositText = Text(depositWindow, font=('Arial', 16), height=1, width=20)
+    depositText.pack(side="top")
+    
+    depositAmount = Button(depositWindow, text="Deposit", width=10, font=("Calibri", 30), command=process_deposit)
+    depositAmount.pack(side="top")
+   
+    depositWindow.mainloop()
+        
 def withdraw():
     global amount
     
@@ -106,5 +120,3 @@ slotButton = Button(mainWindow,text = "Play slots",width = 10,font = ("Calibri",
 slotButton.pack(side = "top",anchor = "center")
 
 mainWindow.mainloop()
-
-    
