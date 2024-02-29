@@ -1,6 +1,7 @@
 import random as ran
 import time
 from tkinter import *
+import tkinter.messagebox 
 
 amount = 0
 
@@ -21,11 +22,15 @@ def deposit():
     
     def process_deposit():
         global amount
-        depositedAmount = depositText.get("1.0", "end-1c")
-        amount += int(depositedAmount)  
-        balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
-        print("Deposit amount:", depositedAmount) 
-        depositWindow.destroy()
+        depositedAmount = int(depositText.get("1.0", "end-1c"))
+        if depositedAmount <= 0:
+            tkinter.messagebox.showwarning(title="Error", message="Enter a value greater than 0")
+            deposit()
+        else:
+            amount += int(depositedAmount)  
+            balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
+            print("Deposit amount:", depositedAmount) 
+            depositWindow.destroy()
 
     depositWindow = Tk()
     depositWindow.title("Deposit Money")
