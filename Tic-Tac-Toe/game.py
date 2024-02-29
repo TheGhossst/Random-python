@@ -24,9 +24,9 @@ def nextGame():
 def isEmptySpaces():
     #print("sup")
     totalSpace = 9
-    for i in range(3):
-        for j in range(3):
-            if board[i][j]['text'] != "":
+    for row in range(3):
+        for col in range(3):
+            if board[row][col]['text'] != "":
                 totalSpace -= 1
                 
     if totalSpace == 0:
