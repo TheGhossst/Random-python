@@ -2,6 +2,7 @@
 A tic-tac-toe game made with python tkinter    
 
 # Prerequsites
+Tkinter
 ```bash
 pip install tk
 ```
