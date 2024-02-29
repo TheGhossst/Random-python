@@ -110,7 +110,7 @@ def slot():
             for rectangle in slotRectangles:
                 slotCanvas.itemconfig(rectangle, fill = ran.choice(slotItems))
             slotWindow.after(100,animate, count + 1)
-            print(slotRectangles)
+            print(slot)
         else:
             checkResult()
             #spinButton.config(state = NORMAL)
