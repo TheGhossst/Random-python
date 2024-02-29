@@ -5,14 +5,21 @@ def nextGame():
     print("New game")
     
 def checkWinner():
-    print("bah")
+    #print("bah")
+    for i in range(3):
+        if board[i][0]['text'] == board[i][1]['text']  == board[i][2]['text'] !=""  : #row check
+            print("won")
+            return True
+        elif  board[0][i]['text'] == board[1][i]['text'] ==  board[2][i]['text'] !="" :  #coloumn check
+            print("won")
+            return True
     
 def nextTurn(row,column):
-    #print(f"{row}{column}")
+    print(f"{row}{column}")
     global turn
     
-    if board[row][column]['text'] == "":
-        if turn == players[0]:
+    if board[row][column]['text'] == "" and checkWinner() is False:
+        if turn == players[0]  or turn == players[1]:
             board[row][column]['text'] = turn
     
 players = ["X","O"]
