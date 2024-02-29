@@ -94,6 +94,7 @@ def slot():
             slotRectangles.append(rectangle)
             
     def checkResult():
+        #print(slotRectangles)
         global amount
         if slotRectangles[0] == slotRectangles[1] == slotRectangles[2]:
             tkinter.messagebox.showinfo("Result", "Jackpot!!!")
@@ -101,27 +102,30 @@ def slot():
             balanceLabel1.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
             balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
         else:
-            tkinter.messagebox.showinfo("Result", "Try Again!")
+            #tkinter.messagebox.showinfo("Result", "Try Again!")
+            resultLabel.config(text = "Try Again",font = ("Calibri", 35))
             
     def animate(count):
         if count < 20:
             for rectangle in slotRectangles:
                 slotCanvas.itemconfig(rectangle, fill = ran.choice(slotItems))
             slotWindow.after(100,animate, count + 1)
+            print(slotRectangles)
         else:
             checkResult()
-            spinButton.config(state = NORMAL)
+            #spinButton.config(state = NORMAL)
         
     def spin():
         global amount
         if amount > 0:
-            spinButton.config(state = DISABLED)
+           # spinButton.config(state = DISABLED)
             amount -= 10
             balanceLabel1.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
             balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
             animate(0)
         else:
             tkinter.messagebox.showwarning(title="Error", message="You dont have enough money to spin")
+            
             
     slotWindow = Tk()
     slotWindow.title("Slot Machine")
@@ -139,6 +143,9 @@ def slot():
     
     spinButton = Button(slotWindow,text = "Spin!",command = spin)
     spinButton.pack(side = "top")
+    
+    resultLabel = Label(slotWindow,text = "")
+    resultLabel.pack(side = "top")
     
     slotWindow.mainloop()
    
