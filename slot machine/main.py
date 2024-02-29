@@ -35,7 +35,7 @@ def withdraw():
         if(withdrawAmount > 0):
             if(withdrawAmount <= amount):
                 amount -= withdrawAmount
-                checkBalance()
+                print("\nYour new balance is : \033[32m$", amount, "\033[0m") 
                 break
             else:
                 print("Withdraw request is greater than balance try again!")

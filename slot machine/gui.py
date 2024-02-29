@@ -11,6 +11,7 @@ def checkBalance():
         print("You have no money in your account.")
         amount += 20
         print("Devs credited $20 in your account")
+        balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
         checkBalance()
     
 
@@ -37,7 +38,7 @@ def withdraw():
         if(withdrawAmount > 0):
             if(withdrawAmount <= amount):
                 amount -= withdrawAmount
-                checkBalance()
+                balanceLabel.config(text = f"Balance is : {amount}",font = ("Calibri", 25))
                 break
             else:
                 print("Withdraw request is greater than balance try again!")
