@@ -12,6 +12,17 @@ print(turn)
 
 def nextGame():
     print("New game")
+    global turn
+
+    turn = rand.choice(players)
+    turnLabel.config(text = f"{turn}'s turn")
+
+    for row in range(3):
+        for col in range(3):
+            board[row][col].config(text = "",bg = "#F0F0F0")
+    
+def isEmptySpaces():
+    print("sup")
     
 def checkWinner():
     #print("bah")
@@ -24,9 +35,16 @@ def checkWinner():
             print("won")
             return True
     for i in range(1):
-        if board[i][i]['text'] ==board[i+1][i+1]['text']== board[i+2][i+2]['text']!="":#diagonal check
+        if board[i][i]['text'] == board[i+1][i+1]['text']== board[i+2][i+2]['text']!="":#diagonal check
             print("won")
             return True
+        if board[i][i+2]['text'] == board[i+1][i+1]['text']== board[i+2][i]['text']!="":#diagonal check
+            print("won")
+            return True
+    
+    if isEmptySpaces() is False:
+        return "Tie"
+       
     return False
     
 def nextTurn(row,column):
