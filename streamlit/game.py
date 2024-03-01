@@ -60,12 +60,14 @@ st.button("Next Game", on_click=nextGame)
 
 st.write(st.session_state.game_status)
 
-cell_col1, cell_col2, cell_col3 = st.columns(3)
+board_container = st.container()
 
-for i in range(3):
-    for j in range(3):
-        cell = st.session_state.board[i][j]
-        if cell == "":
-            clicked = cell_col2.button("", key=f"{i}_{j}", on_click=nextTurn, args=(i, j))
-        else:
-            cell_col2.write(cell)
+with board_container:
+    for i in range(3):
+        row_container = st.container()
+        for j in range(3):
+            cell = st.session_state.board[i][j]
+            if cell == "":
+                clicked = row_container.button("", key=f"{i}_{j}", on_click=nextTurn, args=(i, j))
+            else:
+                row_container.write(cell)
