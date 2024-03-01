@@ -3,71 +3,49 @@ import random as rand
 
 players = ["X", "O"]
 
-board = [["", "", ""],
-         ["", "", ""],
-         ["", "", ""]]
+def initialize_game():
+    return [["" for _ in range(3)] for _ in range(3)], rand.choice(players)
 
-turn = rand.choice(players)
-
-def nextGame():
-    global turn, board
-    turn = rand.choice(players)
-    st.session_state.board = [["", "", ""],
-                              ["", "", ""],
-                              ["", "", ""]]
-    st.session_state.turn = turn
-    st.session_state.game_status = f"{turn}'s turn"
-
-def isEmptySpaces():
-    totalSpace = 9
-    for row in range(3):
-        for col in range(3):
-            if st.session_state.board[row][col] != "":
-                totalSpace -= 1
-    return totalSpace > 0
-
-def checkWinner():
+def check_winner(board):
+    # Check rows and columns
     for i in range(3):
-        if st.session_state.board[i][0] == st.session_state.board[i][1] == st.session_state.board[i][2] and st.session_state.board[i][0] != "":
+        if board[i][0] == board[i][1] == board[i][2] != "":
             return True
-        if st.session_state.board[0][i] == st.session_state.board[1][i] == st.session_state.board[2][i] and st.session_state.board[0][i] != "":
+        if board[0][i] == board[1][i] == board[2][i] != "":
             return True
-    if st.session_state.board[0][0] == st.session_state.board[1][1] == st.session_state.board[2][2] and st.session_state.board[0][0] != "":
+
+    # Check diagonals
+    if board[0][0] == board[1][1] == board[2][2] != "":
         return True
-    if st.session_state.board[0][2] == st.session_state.board[1][1] == st.session_state.board[2][0] and st.session_state.board[0][2] != "":
+    if board[0][2] == board[1][1] == board[2][0] != "":
         return True
+
     return False
 
-def nextTurn(row, column):
-    if st.session_state.board[row][column] == "" and not checkWinner():
-        st.session_state.board[row][column] = st.session_state.turn
-        if not checkWinner():
-            st.session_state.turn = players[(players.index(st.session_state.turn) + 1) % 2]
-            st.session_state.game_status = f"{st.session_state.turn}'s turn"
-        elif checkWinner():
-            st.session_state.game_status = f"{st.session_state.turn} won"
-        elif not isEmptySpaces():
-            st.session_state.game_status = "Tie"
+def next_game():
+    st.session_state.board, st.session_state.current_player = initialize_game()
 
-if "board" not in st.session_state:
-    nextGame()
+def make_move(row, col):
+    board = st.session_state.board
+    if board[row][col] == "" and not check_winner(board):
+        board[row][col] = st.session_state.current_player
+        st.session_state.current_player = players[(players.index(st.session_state.current_player) + 1) % 2]
 
-st.title("Tic-Tac-Toe")
+def main():
+    if "board" not in st.session_state:
+        next_game()
 
-st.write("Tic-Tac-Toe")
+    st.title("Tic-Tac-Toe")
+    st.button("Next Game", on_click=next_game)
 
-st.button("Next Game", on_click=nextGame)
-
-st.write(st.session_state.game_status)
-
-board_container = st.container()
-
-with board_container:
     for i in range(3):
-        row_container = st.container()
+        row = st.empty()
         for j in range(3):
             cell = st.session_state.board[i][j]
             if cell == "":
-                clicked = row_container.button("", key=f"{i}_{j}", on_click=nextTurn, args=(i, j))
+                clicked = row.button("", key=f"{i}_{j}", on_click=make_move, args=(i, j))
             else:
-                row_container.write(cell)
+                row.write(cell)
+
+if __name__ == "__main__":
+    main()
