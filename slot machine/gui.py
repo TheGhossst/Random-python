@@ -95,6 +95,7 @@ def slot():
             y1 = y0 + 100
             rectangle = slotCanvas.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
             slotRectangles.append(rectangle)
+            print(slotRectangles)
             
     def checkResult():
         #print(slotRectangles)
@@ -111,7 +112,9 @@ def slot():
     def animate(count):
         if count < 20:
             for rectangle in slotRectangles:
-                slotCanvas.itemconfig(rectangle, fill = ran.choice(slotItems))
+                temp = ran.choice(slotItems)
+                print(temp)
+                slotCanvas.itemconfig(rectangle,fill =temp)
             slotWindow.after(100,animate, count + 1)
             print(slot)
         else:
