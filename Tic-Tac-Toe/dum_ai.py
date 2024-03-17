@@ -47,29 +47,31 @@ def evaluate(board):
 
 
 def minimax(board, depth, maximizing):
-        result = evaluate(board)
-        if result is not None:
-            return result
-        if maximizing:
-            best_score = -float('inf')
-            for row in range(3):
-                for col in range(3):
-                    if board[row][col] == 0:
-                        board[row][col] = 'O'
-                        score = minimax(board, depth + 1, False)
-                        board[row][col] = 0
-                        best_score = max(score, best_score)
-            return best_score
-        else:
-            best_score = float('inf')
-            for row in range(3):
-                for col in range(3):
-                    if board[row][col] == 0:
-                        board[row][col] = 'X'
-                        score = minimax(board, depth + 1, True)
-                        board[row][col] = 0
-                        best_score = min(score, best_score)
-            return best_score
+    global turn
+    result = evaluate(board)
+    if result is not None:
+        return result
+    
+    if maximizing:
+        best_score = -float('inf')
+        for row in range(3):
+            for col in range(3):
+                if board[row][col] == 0:
+                    board[row][col] = '0'
+                    score = minimax(board, depth + 1, False)
+                    board[row][col] = 0
+                    best_score = max(score, best_score)
+        return best_score
+    else:
+        best_score = float('inf')
+        for row in range(3):
+            for col in range(3):
+                if board[row][col] == 0:
+                    board[row][col] = 'X'
+                    score = minimax(board, depth + 1, True)
+                    board[row][col] = 0
+                    best_score = min(score, best_score)
+        return best_score
 
 def checkWinner():
     for i in range(3):
