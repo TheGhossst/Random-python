@@ -28,6 +28,13 @@ def isEmptySpaces():
         return False
     return True
 
+def evaluate(board):
+    return 1
+def minimax(board, depth, maximizing):
+        result = evaluate(board)
+        if result is not None:
+            return result
+
 def checkWinner():
     for i in range(3):
         if board[i][0]['text'] == board[i][1]['text'] == board[i][2]['text'] != "":  # row check
@@ -85,7 +92,30 @@ def nextTurn(row, column):
                 
 def aiPlay():
     global turn
-    
+    best_score = -float('inf')
+    best_move = None
+    for i in range(3):
+        for j in range(3):
+            if board[i][j]['text'] == "":
+                board[i][j]['text'] = turn
+                score = minimax(board, 0, False)
+                board[i][j]['text'] = ""
+                if score > best_score:
+                    best_score = score
+                    best_move = (i, j)
+    board[best_move[0]][best_move[1]]['text'] = turn  
+    if checkWinner() is False:
+        if turn == players[0]:
+            turn = players[1]
+            turnLabel.config(text=f"{players[1]}'s turn")
+        else:
+            turn = players[0] 
+            turnLabel.config(text=f"{players[0]}'s turn")
+    elif checkWinner() is True:
+        turnLabel.config(text=f"{turn} won")  
+    elif checkWinner() == "Tie":
+        turnLabel.config(text="Tie")
+
 
 window = Tk()
 window.title("Tic-Tac-Toe")
