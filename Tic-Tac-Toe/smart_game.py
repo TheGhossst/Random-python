@@ -66,7 +66,7 @@ def nextTurn(row, column):
             if checkWinner() is False:
                 turn = players[1]
                 turnLabel.config(text=f"{players[1]}'s turn")
-            
+                aiPlay()
             elif checkWinner() is True:
                 turnLabel.config(text=f"{turn} won")
             elif checkWinner() == "Tie":
@@ -77,12 +77,15 @@ def nextTurn(row, column):
             if checkWinner() is False:
                 turn = players[0]
                 turnLabel.config(text = f"{players[0]}'s turn")
-                
+                aiPlay()
             elif checkWinner() is True:
                 turnLabel.config(text = f"{turn} won")
             elif checkWinner() == "Tie":
                 turnLabel.config(text = "Tie")
-
+                
+def aiPlay():
+    global turn
+    
 
 window = Tk()
 window.title("Tic-Tac-Toe")
