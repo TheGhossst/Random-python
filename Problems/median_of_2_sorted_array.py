@@ -1,6 +1,8 @@
+#O(log(m+n))
+
+
 class Solution:
     def findMedianSortedArrays(self, nums1, nums2):
-    # Ensure nums1 is the smaller array
         if len(nums1) > len(nums2):
             nums1, nums2 = nums2, nums1
         
@@ -12,11 +14,10 @@ class Solution:
             j = half_len - i
 
             if i < m and nums1[i] < nums2[j-1]:
-                imin = i + 1  # i is too small, must increase it
+                imin = i + 1  
             elif i > 0 and nums1[i-1] > nums2[j]:
-                imax = i - 1  # i is too big, must decrease it
+                imax = i - 1  
             else:
-                # i is perfect
                 if i == 0: max_of_left = nums2[j-1]
                 elif j == 0: max_of_left = nums1[i-1]
                 else: max_of_left = max(nums1[i-1], nums2[j-1])
