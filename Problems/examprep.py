@@ -94,9 +94,8 @@ def evenSum(numbers):
             sum += x
     print(f"Sum of all even numbers is : {sum}")
     
-'''Write a Python program which takes a positive integer n as input and finds
-the sum of cubes of all positive even numbers less than or equal to the
-number'''
+#Write a Python program which takes a positive integer n as input and finds
+#the sum of cubes of all positive even numbers less than or equal to the number
 def cubeSum(number):
     if number <= 0:
         print("Error")
@@ -115,6 +114,119 @@ def fibonacci(n):
         a, b = b, a + b
     return fib_sequence
 fibonacci(10)
+
+
+'''
+Module 2
+'''
+
+def removeVowels(string):
+    vowels = "aeiouAeiou"
+    result = ""
+    
+    for ch in string:
+        if ch not in vowels:
+            result += ch
+    
+    print(result)
+removeVowels("Hello")
+
+def removeOddIndex(string):
+    result = ""
+    for i in range(0,len(string),2):
+        result += string[i]
+        
+    print(result)
+removeOddIndex("Hello")
+
+#Write a program to replace all the spaces in the input string with * or if no
+#spaces found, put $ at the start and end of the string.
+def replaceSpace(string):
+    if " " in string:
+        string = string.replace(" ", "*")
+        print(string)
+    else:
+        print(f"${string}$")   
+replaceSpace("hello whats up")      
+  
+#Write a program to slice the string into two separate strings; one with all the
+#characters in odd index and one with all even indices
+def sliceString(string):
+    odd_string = string[1::2]
+    even_string = string[::2]
+    
+    print(odd_string)
+    print(even_string)
+    
+sliceString("hello")
+
+#Write a program to remove all occurrence of a substring from a string.
+def removeSubstring(string, substring):
+    string = string.replace(substring, "")
+    print(string)
+removeSubstring("TENENENENTEETNNETENEN","NET")
+
+#Write a Program to reverse the first and second half of a string separately.
+def reverseHalves(string):
+    length = len(string)
+    half = length // 2
+    
+    first_half = string[:half]
+    second_half = string[half:]
+  
+    first_half = first_half[::-1]
+    second_half = second_half[::-1]
+
+    print(f"{first_half}{second_half}")
+
+reverseHalves("racecarracecrar")
+reverseHalves("abcdefghij")
+
+    
+#16.Write a Python program to find the value for sin(x) up to n terms using the series
+#sin(x)=1-x^3/3!+x^5/5!..... ( sin(x) = ((-1)^n/(2n+1)!)x^(2n+1) )
+import math
+
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+def sin_series(x, n_terms):
+    sin_x = 0
+    for n in range(n_terms):
+        term = ((-1)**n * x**(2*n + 1)) / factorial(2*n + 1)
+        sin_x += term
+    return sin_x
+
+x = math.radians(30)  
+n_terms = 10 
+result = sin_series(x, n_terms)
+
+print(f"sin({math.degrees(x)} degrees) calculated using series expansion up to {n_terms} terms is: {result}")
+print(f"sin({math.degrees(x)} degrees) using math.sin is: {math.sin(x)}")
+
+def basic_set_operations(set1, set2):
+    union_set = set1.union(set2)
+    print(f"Union of {set1} and {set2} is: {union_set}")
+
+    intersection_set = set1.intersection(set2)
+    print(f"Intersection of {set1} and {set2} is: {intersection_set}")
+
+    difference_set1 = set1.difference(set2)
+    difference_set2 = set2.difference(set1)
+    print(f"Difference of {set1} - {set2} is: {difference_set1}")
+    print(f"Difference of {set2} - {set1} is: {difference_set2}")
+
+    sym_diff_set = set1.symmetric_difference(set2)
+    print(f"Symmetric difference of {set1} and {set2} is: {sym_diff_set}")
+
+set1 = {1, 2, 3, 4, 5}
+set2 = {4, 5, 6, 7, 8}
+
+basic_set_operations(set1, set2)
+
 
 if __name__ == "__main__":
     seconds = int(input("Enter a time in seconds : "))
