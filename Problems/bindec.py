@@ -6,12 +6,22 @@ def bintodec(binary):
         decimal = decimal * 2 + int(digit)
     return decimal
 
-def dectobin(decimal):
+'''def dectobin(decimal):
     binary = ""
     while decimal > 0:
         binary = str(decimal % 2) + binary
         decimal //= 2
-    return binary
+    return binary'''
+
+binary = ""
+def dectobin(decimal):
+    global binary
+    if decimal == 0:
+        return binary
+    else:
+        binary = str(decimal % 2) + binary
+        decimal //= 2
+        return dectobin(decimal)
 
 binary_num = input("Enter a binary number : ")
 decimal_num = int(input("Enter a decimal number: "))
